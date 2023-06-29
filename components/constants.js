@@ -54,7 +54,7 @@ export const COORDINATES_MAP = {
 
   // HOME ENTRANCE
 
-  // P1
+  // Jugador1
   100: [7, 13],
   101: [7, 12],
   102: [7, 11],
@@ -62,7 +62,7 @@ export const COORDINATES_MAP = {
   104: [7, 9],
   105: [7, 8],
 
-  // P2
+  // Jugador2
   200: [7, 1],
   201: [7, 2],
   202: [7, 3],
@@ -72,13 +72,13 @@ export const COORDINATES_MAP = {
 
   // BASE POSITIONS
 
-  // P1
+  // Jugador1
   500: [1.5, 10.58],
   501: [3.57, 10.58],
   502: [1.5, 12.43],
   503: [3.57, 12.43],
 
-  // P2
+  // Jugador2
   600: [10.5, 1.58],
   601: [12.54, 1.58],
   602: [10.5, 3.45],
@@ -87,31 +87,31 @@ export const COORDINATES_MAP = {
 
 export const STEP_LENGTH = 6.66;
 
-export const PLAYERS = ["P1", "P2"];
+export const PLAYERS = ["Jugador1", "Jugador2"];
 
 export const BASE_POSITIONS = {
-  P1: [500, 501, 502, 503],
-  P2: [600, 601, 602, 603],
+  Jugador1: [500, 501, 502, 503],
+  Jugador2: [600, 601, 602, 603],
 };
 
 export const START_POSITIONS = {
-  P1: 0,
-  P2: 26,
+  Jugador1: 0,
+  Jugador2: 26,
 };
 
 export const HOME_ENTRANCE = {
-  P1: [100, 101, 102, 103, 104],
-  P2: [200, 201, 202, 203, 204],
+  Jugador1: [100, 101, 102, 103, 104],
+  Jugador2: [200, 201, 202, 203, 204],
 };
 
 export const HOME_POSITIONS = {
-  P1: 105,
-  P2: 205,
+  Jugador1: 105,
+  Jugador2: 205,
 };
 
 export const TURNING_POINTS = {
-  P1: 50,
-  P2: 24,
+  Jugador1: 50,
+  Jugador2: 24,
 };
 
 export const SAFE_POSITIONS = [0, 8, 13, 21, 26, 34, 39, 47];

@@ -1,3 +1,5 @@
+import { UI } from "./UI.js";
+
 export class Ludo {
   constructor() {
     // this.name = 'Ludo';

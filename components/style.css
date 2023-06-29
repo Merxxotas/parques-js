@@ -27,6 +27,7 @@
     border: 2px solid;
     border-radius: 10px;
     position: absolute;
+    transform: translate(50%, 50%);
     /* top: 15%;
     left: 50%; */
 }
@@ -39,23 +40,23 @@
 
 @keyframes spin {
     0% {
-        transform: rotate(0deg);
+        transform: translate(50%, 50%) rotate(0deg);
     }
 
     50% {
-        transform: rotate(180deg) scale (1.4);
+        transform: translate(50%, 50%) rotate(180deg) scale (1.4);
     }
 
     100% {
-        transform: rotate(360deg);
+        transform: translate(50%, 50%) rotate(360deg);
     }
 }
 
-[player-id="P1"].player-piece {
+[player-id="Jugador1"].player-piece {
     background-color: #2eafff;
 }
 
-[player-id="P2"].player-piece {
+[player-id="Jugador2"].player-piece {
     background-color: #00b550;
 }
 
@@ -66,13 +67,13 @@
     position: absolute;
 }
 
-.player-bases [player-id="P1"].player-base {
+.player-bases [player-id="Jugador1"].player-base {
     bottom: 0;
     left: 0;
     border-color: #1295e7;
 }
 
-.player-bases [player-id="P2"].player-base {
+.player-bases [player-id="Jugador2"].player-base {
     top: 0;
     right: 0;
     border-color: #049645;
@@ -97,6 +98,10 @@
     font-size: 16px;
 }
 
+.btn:disabled {
+    opacity: 0.5;
+}
+
 .btn-dice {
     background-color: rgb(197, 211, 6);
     color: rgb(28, 0, 153);
@@ -111,6 +116,11 @@
     display: flex;
     justify-content: space-between;
     margin-top: 15px;
+}
+
+.dice-value {
+    font-size: 24px;
+    font-weight: bold;
 }
 
 /* .btn-roll {
