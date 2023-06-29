@@ -1,0 +1,87 @@
+.ludo container {
+    /* border: 1px solid red; */
+    width: 450px;
+    margin: 20px auto;
+}
+
+.ludo-container .ludo{
+    border: 1px solid red;
+    height: 450px;
+    width: 100%;
+    background-image: url('./ludo-bg.jpg');
+    background-size: contain;
+}
+
+
+.player-pieces {
+    height: 100%;
+    width: 100%;
+}
+
+.player-piece {
+    width: 3%;
+    height: 3%;
+    border: 2px solid;
+    border-radius: 50px;
+    position: absolute;
+    /* top: 15%;
+    left: 50%; */
+}
+
+.player-piece.highlight {
+    cursor: pointer;
+    border: 2px dashed;
+    animation: spin 1s infinite linear;
+}
+
+@keyframes spin {
+    0% {
+        transform: rotate(0deg);
+    }
+
+    50% {
+        transform: rotate(180deg) scale (1.4);
+    }
+
+    100% {
+        transform: rotate(360deg);
+    }
+}
+
+[player-id="P1"].player-piece {
+    background-color: #2eafff;
+    }
+
+[player-id="P2"].player-piece {
+    background-color: #00b550;
+    }
+
+.btn {
+    /* margin: 10px auto; */
+    padding: 8px 20px;
+    border: 1px solid green;
+    cursor: pointer;
+    font-size: 16px;
+}
+
+.btn-dice {
+    background-color: rgb(197, 211, 6);
+    color: rgb(28, 0, 153);
+}
+
+.btn-reset {
+    background-color: rgb(214, 82, 82);
+    color: rgb(55, 10, 216);
+}
+
+.row {
+    display: flex;
+    justify-content: space-between;
+    margin-top: 15px;
+}
+
+/* .btn-roll {
+    background-color: rgb(0, 255, 0);
+    color: rgb(0, 0, 0);
+} */
+
