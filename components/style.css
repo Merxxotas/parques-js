@@ -78,6 +78,17 @@
     border-color: #049645;
 }
 
+.player-base.highlight {
+    animation: border-blink .7s infinite ease-in-out;
+}
+
+@keyframes border-blink {
+
+    50% {
+        border-color: rgba(160, 157, 157, 0.8);
+    }
+}
+
 .btn {
     /* margin: 10px auto; */
     padding: 8px 20px;
