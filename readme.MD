@@ -1,4 +1,4 @@
-# Implementación de LudoGame o "Parqués" para 4 jugadores, usando JavaScript (JS)
+# Implementación de LudoGame o "Parqués" para 2 jugadores, usando JavaScript (JS)
 
 En este proyecto personal, he creado una implementación del juego LudoGame utilizando JavaScript como lenguaje de programación. El objetivo principal es recrear la experiencia de juego del clásico Parqués en un entorno digital y permitir que hasta 4 jugadores participen simultáneamente.
 
