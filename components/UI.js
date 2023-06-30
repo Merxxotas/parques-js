@@ -2,8 +2,8 @@ import { COORDINATES_MAP, PLAYERS, STEP_LENGTH } from "./constants.js";
 
 const diceButtonElement = document.querySelector("#dice-btn");
 const playerPiecesElements = {
-  Player1: document.querySelectorAll('[player-id="Player1"].player-piece'),
-  Player2: document.querySelectorAll('[player-id="Player2"].player-piece'),
+  Jugador1: document.querySelectorAll('[player-id="Jugador1"].player-piece'),
+  Jugador2: document.querySelectorAll('[player-id="Jugador2"].player-piece'),
 };
 export class UI {
   static listenDiceClick(callback) {

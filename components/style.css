@@ -28,6 +28,7 @@
     border-radius: 10px;
     position: absolute;
     transform: translate(50%, 50%);
+    transition: all .2s;
     /* top: 15%;
     left: 50%; */
 }
@@ -52,11 +53,11 @@
     }
 }
 
-[player-id="Player1"].player-piece {
+[player-id="Jugador1"].player-piece {
     background-color: #2eafff;
 }
 
-[player-id="Player2"].player-piece {
+[player-id="Jugador2"].player-piece {
     background-color: #00b550;
 }
 
@@ -67,13 +68,13 @@
     position: absolute;
 }
 
-.player-bases [player-id="Player1"].player-base {
+.player-bases [player-id="Jugador1"].player-base {
     bottom: 0;
     left: 0;
     border-color: #1295e7;
 }
 
-.player-bases [player-id="Player2"].player-base {
+.player-bases [player-id="Jugador2"].player-base {
     top: 0;
     right: 0;
     border-color: #049645;

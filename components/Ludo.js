@@ -12,8 +12,8 @@ import {
 
 export class Ludo {
   currentPositions = {
-    Player1: [],
-    PLayer2: [],
+    Jugador1: [],
+    Jugador2: [],
   };
 
   _diceValue;
@@ -60,7 +60,7 @@ export class Ludo {
     this.listenDiceClick();
     this.listenResetClick();
     this.listenPieceClick();
-    this.setPiecePosition("Player1", 0, 0);
+    this.setPiecePosition("Jugador1", 0, 0);
   }
 
   listenDiceClick() {
@@ -77,8 +77,7 @@ export class Ludo {
 
   resetGame() {
     console.log("juego reiniciado");
-    this.currentPositions = BASE_POSITIONS;
-
+    this.currentPositions = structuredClone(BASE_POSITIONS);
     PLAYERS.forEach((player) => {
       [0, 1, 2, 3].forEach((piece) => {
         this.setPiecePosition(
@@ -108,10 +107,36 @@ export class Ludo {
 
   handlePieceClick(player, piece) {
     console.log(player, piece, "clickeado");
+    this.movePiece(player, piece);
   }
 
   setPiecePosition(player, piece, newPosition) {
     this.currentPositions[player][piece] = newPosition;
     UI.setPiecePosition(player, piece, newPosition);
+  }
+
+  movePiece(player, piece, moveBy) {
+    setInterval(() => {
+      this.incrementPiecePosition(player, piece);
+    }, 200);
+  }
+
+  incrementPiecePosition(player, piece) {
+    this.setPiecePosition(
+      player,
+      piece,
+      this.getIncrementedPosition(player, piece)
+    );
+  }
+
+  getIncrementedPosition(player, piece) {
+    const currentPosition = this.currentPositions[player][piece];
+
+    if (currentPosition === TURNING_POINTS[player]) {
+      return HOME_ENTRANCE[player][0];
+    } else if (currentPosition === 51) {
+      return 0;
+    }
+    return currentPosition + 1;
   }
 }
