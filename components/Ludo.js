@@ -1,10 +1,19 @@
 import { UI } from "./UI.js";
-import { STATE } from "./constants.js";
+import {
+  BASE_POSITIONS,
+  HOME_ENTRANCE,
+  HOME_POSITIONS,
+  PLAYERS,
+  SAFE_POSITIONS,
+  START_POSITIONS,
+  STATE,
+  TURNING_POINTS,
+} from "./constants.js";
 
 export class Ludo {
   currentPositions = {
-    P1: [],
-    P2: [],
+    Player1: [],
+    PLayer2: [],
   };
 
   _diceValue;
@@ -50,6 +59,8 @@ export class Ludo {
     // this.state = STATE.DICE_ROLLED;
     this.listenDiceClick();
     this.listenResetClick();
+    this.listenPieceClick();
+    this.setPiecePosition("Player1", 0, 0);
   }
 
   listenDiceClick() {
@@ -61,10 +72,46 @@ export class Ludo {
   }
 
   listenResetClick() {
-    UI.listenResetClick(this.listenResetGame.bind(this));
+    UI.listenResetClick(this.resetGame.bind(this));
   }
 
-  listenResetGame() {
+  resetGame() {
     console.log("juego reiniciado");
+    this.currentPositions = BASE_POSITIONS;
+
+    PLAYERS.forEach((player) => {
+      [0, 1, 2, 3].forEach((piece) => {
+        this.setPiecePosition(
+          player,
+          piece,
+          this.currentPositions[player][piece]
+        );
+      });
+    });
+  }
+
+  listenPieceClick() {
+    UI.listenPieceClick(this.onPieceClick.bind(this));
+  }
+
+  onPieceClick(event) {
+    const target = event.target;
+    if (!target.classList.contains("player-piece")) {
+      return;
+    }
+    console.log("Le diste click a una ficha");
+
+    const player = target.getAttribute("player-id");
+    const piece = target.getAttribute("piece");
+    this.handlePieceClick(player, piece);
+  }
+
+  handlePieceClick(player, piece) {
+    console.log(player, piece, "clickeado");
+  }
+
+  setPiecePosition(player, piece, newPosition) {
+    this.currentPositions[player][piece] = newPosition;
+    UI.setPiecePosition(player, piece, newPosition);
   }
 }
