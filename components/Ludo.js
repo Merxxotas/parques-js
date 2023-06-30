@@ -45,7 +45,7 @@ export class Ludo {
 
     if (value === STATE.DICE_NOT_ROLLED) {
       UI.enableDice();
-      // UI.unhighlightPieces();
+      UI.unhighlightPieces();
     } else {
       UI.disableDice();
     }
@@ -60,7 +60,13 @@ export class Ludo {
     this.listenDiceClick();
     this.listenResetClick();
     this.listenPieceClick();
-    this.setPiecePosition("Jugador1", 0, 0);
+    this.resetGame();
+    // this.setPiecePosition("Jugador1", 0, 0);
+    // this.setPiecePosition("Jugador2", 0, 1);
+    // this.setPiecePosition("Jugador1", 2, HOME_POSITIONS.Jugador1);
+    // this.setPiecePosition("Jugador1", 3, HOME_POSITIONS.Jugador1);
+    // this.diceValue = 6;
+    // console.log(this.getEligiblePieces("Jugador1"));
   }
 
   listenDiceClick() {
@@ -69,6 +75,50 @@ export class Ludo {
 
   onDiceClick() {
     console.log("DADO HA SIDO LANZADO");
+    this.diceValue = 1 + Math.floor(Math.random() * 7);
+    this.state = STATE.DICE_ROLLED;
+    this.checkForElegiblePieces();
+  }
+
+  checkForElegiblePieces() {
+    const player = PLAYERS[this.turn];
+    const eligiblePieces = this.getEligiblePieces(player);
+    if (eligiblePieces.length) {
+      UI.highlightPieces(player, eligiblePieces);
+    } else {
+      this.incrementTurn();
+    }
+  }
+
+  incrementTurn() {
+    this.turn = this.turn === 0 ? 1 : 0;
+    this.state = STATE.DICE_NOT_ROLLED;
+  }
+
+  getEligiblePieces(player) {
+    return [0, 1, 2, 3].filter((piece) => {
+      const currentPosition = this.currentPositions[player][piece];
+
+      if (currentPosition === HOME_POSITIONS[player]) {
+        return false;
+      }
+
+      if (
+        BASE_POSITIONS[player].includes(currentPosition) &&
+        this.diceValue !== 6
+      ) {
+        return false;
+      }
+
+      if (
+        HOME_ENTRANCE[player].includes(currentPosition) &&
+        this.diceValue > HOME_POSITIONS[player] - currentPosition
+      ) {
+        return false;
+      }
+
+      return true;
+    });
   }
 
   listenResetClick() {
@@ -87,6 +137,9 @@ export class Ludo {
         );
       });
     });
+
+    this.turn = 0;
+    this.state = STATE.DICE_NOT_ROLLED;
   }
 
   listenPieceClick() {
@@ -107,7 +160,14 @@ export class Ludo {
 
   handlePieceClick(player, piece) {
     console.log(player, piece, "clickeado");
-    this.movePiece(player, piece);
+    const currentPosition = this.currentPositions[player][piece];
+    if (BASE_POSITIONS[player].includes(currentPosition)) {
+      this.setPiecePosition(player, piece, START_POSITIONS[player]);
+      this.state = STATE.DICE_NOT_ROLLED;
+      return;
+    }
+    UI.unhighlightPieces();
+    this.movePiece(player, piece, this.diceValue);
   }
 
   setPiecePosition(player, piece, newPosition) {
@@ -116,9 +176,55 @@ export class Ludo {
   }
 
   movePiece(player, piece, moveBy) {
-    setInterval(() => {
+    const interval = setInterval(() => {
       this.incrementPiecePosition(player, piece);
+      moveBy--;
+      if (moveBy === 0) {
+        clearInterval(interval);
+
+        if (this.hasPlayerWon(player)) {
+          alert(`El ${player} ha ganado!`);
+          this.resetGame();
+          return;
+        }
+
+        const isKill = this.checkForKill(player, piece);
+
+        if (isKill || this.diceValue === 6) {
+          this.state = STATE.DICE_NOT_ROLLED;
+          return;
+        }
+
+        this.incrementTurn();
+      }
     }, 200);
+  }
+
+  checkForKill(player, piece) {
+    const currentPosition = this.currentPositions[player][piece];
+    const opponent = player === "Jugador1" ? "Jugador2" : "Jugador1";
+
+    let kill = false;
+
+    [0, 1, 2, 3].forEach((piece) => {
+      const opponentPosition = this.currentPositions[opponent][piece];
+
+      if (
+        currentPosition === opponentPosition &&
+        !SAFE_POSITIONS.includes(currentPosition)
+      ) {
+        this.setPiecePosition(opponent, piece, BASE_POSITIONS[opponent][piece]);
+        kill = true;
+      }
+    });
+
+    return kill;
+  }
+
+  hasPlayerWon(player) {
+    return [0, 1, 2, 3].every(
+      (piece) => this.currentPositions[player][piece] === HOME_POSITIONS[player]
+    );
   }
 
   incrementPiecePosition(player, piece) {
