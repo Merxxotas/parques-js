@@ -6,7 +6,7 @@ En este proyecto personal, he creado una implementación del juego LudoGame util
 
 - JavaScript
 - HTML5/CSS3
-- [Demo](https://parquesjs.netlify.app/)
+- [Aquí la DEMO](https://parquesjs.netlify.app/)
 
 ## Aprendiendo JavaScript
 
